@@ -23,7 +23,7 @@
 
 ## Known Bugs
 
-* _No known bugs_
+* _Extra spaces between letters reads as extra syllables._
 
 ## Contact Information
 _Katie Pundt, kzpundt@gmail.com_
