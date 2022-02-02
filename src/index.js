@@ -2,9 +2,12 @@ import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
-import { ExampleClass } from "./js/project";
+import { haikuChecker } from "./js/haiku.js";
 
-const test = new ExampleClass();
-console.log(test);
-
-$('body').val();
+$(document).ready(function() {
+  $("#haiku").submit(function(event){
+    event.preventDefault();
+    const result = haikuChecker($("#haiku-text"));
+    $('#result').text(`Result: ${result}`);
+  });
+});
