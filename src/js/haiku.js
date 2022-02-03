@@ -24,25 +24,46 @@ const lineSyllables = (wordsArray) => {
 // counts the syllables of each word
 const syllableChecker = (word) => {
   // code borrowed from StackOverflow
-  word = word.toLowerCase();
-  if (word.length <= 3) {
-    return 1;
-  }
-  word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, "");
-  word = word.replace(/^y/, "");
-  return word.match(/[aeiouy]{1,2}/g).length;
+  // word = word.toLowerCase();
+  // if (word.length <= 3) {
+  //   return 1;
+  // }
+  // word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, "");
+  // word = word.replace(/^y/, "");
+  // return word.match(/[aeiouy]{1,2}/g).length;
 
   // our code that only counts vowels right now
 
   // trying to remove word final "e"s
-  // if (word[word.length - 1] === "e") {
-  //   const wordNoE = word.slice(0, word.length - 1);
-  // } else {
-  //   const wordNoE = word;
-  // }
 
   // this successfully counts vowels in each word
-  // const letterArray = word.toLowerCase().split("");
-  // const vowelArray = letterArray.filter((e) => e.match(/[aeiou]/g));
-  // return vowelArray.length;
+  const wordNoE = removeE(word);
+  const wordNoThreeVowels = wordNoE.replace(/[aeiou]{3}/g, "e");
+  const wordNoTwoVowels = wordNoThreeVowels.replace(/[aeiou]{2}/g, "e");
+  const letterArray = wordNoTwoVowels.toLowerCase().split("");
+  const vowelArray = letterArray.filter((e) => e.match(/[aeiou]/g));
+  return vowelArray.length;
 };
+
+// BUG: removes the final "e" from "able" but it shouldn't
+const removeE = (word) => {
+  if (
+    word.length > 3 ||
+    (word.match(/(?:le)\b/g) &&
+      ["a", "e", "i", "o", "u"].includes(word[word.length - 3]))
+  ) {
+    return word.replace(/[e]\b/, "");
+  } else {
+    return word;
+  }
+};
+
+// /[b-df-hj-np-tv-z][^l][^e]$/
+
+// /[le]\b/
+// /[les]\b/
+
+// able
+// kal
+
+// /(?:le)\b/g
