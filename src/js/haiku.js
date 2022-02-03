@@ -1,4 +1,4 @@
-export { haikuChecker };
+export { haikuChecker, wordSplitter, lineSyllables, syllableChecker };
 
 // splits an array of lines into a nested array with individual words
 const wordSplitter = (line) => {
@@ -15,7 +15,7 @@ const haikuChecker = (lines) => {
 // adds the syllables of each line
 const lineSyllables = (wordsArray) => {
   const syllable = wordsArray.map((word) => syllableChecker(word));
-  const syllableSum = syllable.reduce(function(currentValue, element) {
+  const syllableSum = syllable.reduce(function (currentValue, element) {
     return element + currentValue;
   }, 0);
   return syllableSum;
@@ -25,9 +25,11 @@ const lineSyllables = (wordsArray) => {
 const syllableChecker = (word) => {
   // code borrowed from StackOverflow
   word = word.toLowerCase();
-  if(word.length <= 3) { return 1; }
-  word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
-  word = word.replace(/^y/, '');
+  if (word.length <= 3) {
+    return 1;
+  }
+  word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, "");
+  word = word.replace(/^y/, "");
   return word.match(/[aeiouy]{1,2}/g).length;
 
   // our code that only counts vowels right now
@@ -38,11 +40,9 @@ const syllableChecker = (word) => {
   // } else {
   //   const wordNoE = word;
   // }
-  
+
   // this successfully counts vowels in each word
-  // const letterArray = wordNoE.toLowerCase().split("");
-  // const vowelArray = letterArray.filter(e => e.match(/[aeiou]/g));
+  // const letterArray = word.toLowerCase().split("");
+  // const vowelArray = letterArray.filter((e) => e.match(/[aeiou]/g));
   // return vowelArray.length;
 };
-
-
